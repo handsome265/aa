@@ -2,19 +2,153 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>專題簡報</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #startScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #startBtn {
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #startBtn:hover {
+      background-color: #45a049;
+    }
+
+    #viewer {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #slideImg {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #errorMsg {
+      color: red;
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
+  <div id="startScreen">
+    <button id="startBtn">▶ 開始播放</button>
+  </div>
+  <div id="viewer">
+    <img id="slideImg" alt="投影片">
+    <div id="errorMsg" style="display:none;">圖片載入失敗，請檢查 images 資料夾是否存在</div>
+  </div>
 
-<div id="startScreen">
-  <button id="startBtn">▶ 開始播放</button>
-</div>
+  <script>
+    const audio = new Audio("audio/part1.mp3");
+    const img = document.getElementById("slideImg");
+    const errorMsg = document.getElementById("errorMsg");
+    
+    const slides = [
+      { time: 0, src: "images/page1.jpg" },
+      { time: 10, src: "images/page2.jpg" },
+      { time: 20, src: "images/page3.jpg" },
+      { time: 30, src: "images/page4.jpg" },
+      { time: 40, src: "images/page5.jpg" },
+      { time: 50, src: "images/page6.jpg" },
+      { time: 60, src: "images/page7.jpg" },
+      { time: 70, src: "images/page8.jpg" },
+      { time: 80, src: "images/page9.jpg" },
+      { time: 90, src: "images/page10.jpg" },
+      { time: 100, src: "images/page11.jpg" },
+      { time: 110, src: "images/page12.jpg" },
+      { time: 120, src: "images/page13.jpg" },
+      { time: 130, src: "images/page14.jpg" },
+      { time: 140, src: "images/page15.jpg" },
+      { time: 150, src: "images/page16.jpg" },
+      { time: 160, src: "images/page17.jpg" },
+      { time: 170, src: "images/page18.jpg" },
+      { time: 180, src: "images/page19.jpg" },
+      { time: 190, src: "images/page20.jpg" },
+      { time: 200, src: "images/page21.jpg" },
+      { time: 210, src: "images/page22.jpg" },
+      { time: 220, src: "images/page23.jpg" },
+      { time: 230, src: "images/page24.jpg" }
+    ];
 
-<div id="viewer">
-  <img id="slideImg" src="images/page1.jpg">
-</div>
+    // 檢測圖片載入錯誤
+    img.addEventListener("error", () => {
+      console.error("圖片載入失敗:", img.src);
+      errorMsg.style.display = "block";
+      img.style.display = "none";
+    });
 
-<script src="script.js"></script>
+    img.addEventListener("load", () => {
+      console.log("圖片載入成功:", img.src);
+      errorMsg.style.display = "none";
+      img.style.display = "block";
+    });
+
+    // 初始載入第一張圖片
+    img.src = slides[0].src;
+
+    audio.addEventListener("timeupdate", () => {
+      const t = audio.currentTime;
+      for (let i = slides.length - 1; i >= 0; i--) {
+        if (t >= slides[i].time) {
+          img.src = slides[i].src;
+          break;
+        }
+      }
+    });
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("startScreen").style.display = "none";
+      audio.currentTime = 0;
+      audio.play();
+    });
+
+    // 測試：印出當前頁面的完整路徑
+    console.log("當前頁面位置:", window.location.href);
+    console.log("嘗試載入圖片:", img.src);
+  </script>
 </body>
 </html>
