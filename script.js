@@ -32,47 +32,36 @@ const slides = [
 // 初始載入
 img.src = slides[0].src;
 
-// --- 時間軸功能 ---
-const timeline = document.createElement('div');
-timeline.id = 'timeline';
-timeline.style.display = 'flex';
-timeline.style.flexWrap = 'wrap';
-timeline.style.justifyContent = 'center';
-timeline.style.marginTop = '10px';
-timeline.style.gap = '5px';
-img.parentNode.insertBefore(timeline, img.nextSibling);
+// --- 時間軸與滑動條 ---
+const slider = document.getElementById('timelineSlider');
+const labelsDiv = document.getElementById('timelineLabels');
 
+// 建立標籤
 slides.forEach((slide, idx) => {
-  const btn = document.createElement('div');
-  btn.className = 'timeline-item';
-  btn.textContent = `圈 ${idx+1} - ${Math.floor(slide.time)}s`;
-  btn.style.background = '#222';
-  btn.style.color = '#fff';
-  btn.style.padding = '5px 8px';
-  btn.style.borderRadius = '5px';
-  btn.style.cursor = 'pointer';
-  btn.style.fontSize = '12px';
-  btn.style.border = '1px solid #00ff88';
-  btn.addEventListener('click', () => {
-    audio.currentTime = slide.time;
-    img.src = slide.src;
-  });
-  timeline.appendChild(btn);
+  const label = document.createElement('span');
+  label.textContent = `圈${idx+1}`;
+  labelsDiv.appendChild(label);
 });
 
-// 切換圖片 + 更新時間軸
-audio.addEventListener("timeupdate", () => {
-  const t = audio.currentTime;
+slider.addEventListener('input', e => {
+  const t = (e.target.value/100) * audio.duration;
+  audio.currentTime = t;
+  updateSlide(t);
+});
+
+function updateSlide(time){
   for (let i = slides.length - 1; i >= 0; i--) {
-    if (t >= slides[i].time) {
+    if (time >= slides[i].time) {
       if (!img.src.endsWith(slides[i].src)) img.src = slides[i].src;
-      document.querySelectorAll('.timeline-item').forEach((el, index) => {
-        el.style.background = index === i ? '#00ff88' : '#222';
-        el.style.color = index === i ? '#000' : '#fff';
-      });
       break;
     }
   }
+}
+
+// 幻燈片播放與進度同步
+audio.addEventListener('timeupdate', () => {
+  updateSlide(audio.currentTime);
+  slider.value = (audio.currentTime/audio.duration)*100;
 });
 
 // 開始播放
