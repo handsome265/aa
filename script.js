@@ -22,7 +22,7 @@ const slides = [
   { time: 213.53, src: "images/Thank_you_page-0017.jpg" },
   { time: 214.56, src: "images/Thank_you_page-0018.jpg" },
   { time: 216.85, src: "images/Thank_you_page-0019.jpg" },
-  { time: 226.18, src: "images/Thank_you_page-0020.jpg" },
+  { time: 236.18, src: "images/Thank_you_page-0020.jpg" },
   { time: 269.91, src: "images/Thank_you_page-0021.jpg" },
   { time: 312.33, src: "images/Thank_you_page-0022.jpg" },
   { time: 340.91, src: "images/Thank_you_page-0023.jpg" },
