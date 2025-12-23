@@ -1,31 +1,43 @@
-/* 幻燈片時間軸 */
-#timelineSlider {
-    display: block;
-    margin: 10px auto 0 auto; /* 幻燈片下方置中 */
-    width: 80%;               /* 可調整寬度 */
-    height: 8px;              /* 高度 */
-    background: #444;         /* 滑桿底色 */
-    -webkit-appearance: none; /* 移除預設樣式 */
-    border-radius: 4px;
+#viewer {
+  position: relative;
+  width: 640px; /* 幻燈片寬度 */
+  margin: 20px auto 40px auto;
 }
 
-/* 滑塊 */
+#slideImg {
+  width: 100%;
+  display: block;
+  border: 3px solid #00ff88;
+  border-radius: 10px;
+}
+
+#timelineSlider {
+  position: absolute;
+  bottom: 10px;
+  left: 5%;
+  width: 90%;
+  height: 8px;
+  background: rgba(0,0,0,0.5);
+  -webkit-appearance: none;
+  border-radius: 4px;
+}
+
 #timelineSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    background: #00ff88;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #fff;
-    margin-top: -4px; /* 置中滑塊 */
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #00ff88;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  margin-top: -4px;
 }
 
 #timelineSlider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: #00ff88;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #fff;
+  width: 16px;
+  height: 16px;
+  background: #00ff88;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
 }
