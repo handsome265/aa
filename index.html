@@ -1,139 +1,128 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>玻璃紙顏色對光電板吸收效率之研究</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>玻璃紙顏色對光電板吸收效率</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background-color: #0f172a;
-      color: #e5e7eb;
-      line-height: 1.8;
-    }
+<style>
+body {
+  margin:0;
+  background:#020617;
+  color:#e5e7eb;
+  font-family: system-ui, sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
 
-    header {
-      padding: 60px 20px;
-      text-align: center;
-      background: linear-gradient(180deg, #020617, #0f172a);
-    }
+#content {
+  max-width:900px;
+  text-align:center;
+  opacity:0;
+  transition:opacity 1s;
+}
 
-    header h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      color: #94a3b8;
-    }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 50px 20px;
-    }
-
-    h2 {
-      color: #38bdf8;
-      margin-bottom: 15px;
-    }
-
-    video {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-
-    .links a {
-      display: inline-block;
-      margin-right: 15px;
-      margin-top: 10px;
-      padding: 10px 18px;
-      border-radius: 8px;
-      background: #1e293b;
-      color: #38bdf8;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    .links a:hover {
-      background: #38bdf8;
-      color: #020617;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: #64748b;
-      font-size: 0.9rem;
-    }
-  </style>
+h1 { color:#38bdf8; }
+p { font-size:1.1rem; line-height:1.8; }
+</style>
 </head>
 
 <body>
 
-<header>
-  <h1>玻璃紙顏色對光電板吸收效率之研究</h1>
-  <p>
-    Programming × Physics<br>
-    21411 林俐陽｜21420 蘇祈瑞
-  </p>
-</header>
+<div id="content"></div>
 
-<section>
-  <h2>研究動畫影片</h2>
-  <p>
-    本影片以動畫方式呈現本研究的完整流程，包含研究動機、模擬實驗、
-    實際量測、數據分析，以及模擬與實驗結果的比較。
-  </p>
+<script>
+// ====== PDF 對應的時間線 ======
+const timeline = [
+  {
+    duration: 10,
+    html: `
+      <h1>玻璃紙顏色對光電板吸收效率</h1>
+      <p>Programming × Physics<br>林俐陽・蘇祈瑞</p>
+    `,
+    speech: "本研究結合程式設計與物理學，探討玻璃紙顏色對光電板吸收效率的影響。"
+  },
+  {
+    duration: 15,
+    html: `
+      <h1>研究動機</h1>
+      <p>土地資源有限，是否能透過控制波長提升效率？</p>
+    `,
+    speech: "由於台灣土地資源有限，我們思考是否能透過限制特定波長的光線，在不增加用地的情況下，改變光電板的發電效率。"
+  },
+  {
+    duration: 18,
+    html: `
+      <h1>光源選擇</h1>
+      <p>白日燈 × SpectraSmart</p>
+    `,
+    speech: "本實驗並未使用太陽光，而是選擇白日燈作為穩定光源，並透過 SpectraSmart 量測其發光強度與光譜分布。"
+  },
+  {
+    duration: 18,
+    html: `
+      <h1>模擬實驗</h1>
+      <p>JavaScript 即時互動模擬</p>
+      <p><a href="https://handsome265.github.io/hi/" target="_blank">模擬實驗網站</a></p>
+    `,
+    speech: "我們使用 JavaScript 建立互動式模擬系統，即時觀察不同顏色玻璃紙對光線吸收的影響。"
+  },
+  {
+    duration: 20,
+    html: `
+      <h1>實驗數據分析</h1>
+      <p><a href="https://handsome265.github.io/ok/" target="_blank">分析圖表網站</a></p>
+    `,
+    speech: "接著，我們將實際實驗數據轉換為圖表，分析不同顏色玻璃紙下的光電板輸出效率。"
+  },
+  {
+    duration: 18,
+    html: `
+      <h1>結論</h1>
+      <p>模擬與實驗趨勢一致</p>
+    `,
+    speech: "結果顯示，模擬與實驗在整體趨勢上相當一致，光線衰減行為大致符合比爾朗伯定律。"
+  }
+];
 
-  <video controls>
-    <source src="video/research.mp4" type="video/mp4">
-    您的瀏覽器不支援影片播放。
-  </video>
-</section>
+// ====== 語音設定 ======
+function speak(text) {
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "zh-TW";
 
-<section>
-  <h2>模擬實驗與數據分析</h2>
-  <p>
-    本研究使用 JavaScript 建立互動式模擬系統，
-    並透過實際實驗數據進行驗證與比較。
-  </p>
+  const voices = speechSynthesis.getVoices();
+  const male = voices.find(v => v.name.includes("YunJhe"));
+  if (male) utter.voice = male;
 
-  <div class="links">
-    <a href="https://handsome265.github.io/hi/" target="_blank">
-      模擬實驗網站
-    </a>
+  speechSynthesis.speak(utter);
+}
 
-    <a href="https://handsome265.github.io/ok/" target="_blank">
-      實驗數據分析圖表
-    </a>
-  </div>
-</section>
+// ====== 播放時間線 ======
+const content = document.getElementById("content");
+let index = 0;
 
-<section>
-  <h2>光源與量測說明</h2>
-  <p>
-    本研究使用白日燈作為穩定光源，
-    並透過 SpectraSmart 量測其發光強度、光譜分布與吸收度，
-    以確保實驗條件具備可重複性與可比較性。
-  </p>
-</section>
+function playNext() {
+  if (index >= timeline.length) return;
 
-<section>
-  <h2>參考文獻</h2>
-  <p>
-    Mahmoud Ben Amara,<br>
-    <em>Colored filter's impact on the solar cells' electric output under real climatic conditions for application in building integrated photovoltaics</em>,<br>
-    Journal of Building Engineering, Volume 76, 1 October 2023, 107276.
-  </p>
-</section>
+  const slide = timeline[index];
+  content.style.opacity = 0;
 
-<footer>
-  © 2025 Programming × Physics Research Project
-</footer>
+  setTimeout(() => {
+    content.innerHTML = slide.html;
+    content.style.opacity = 1;
+    speak(slide.speech);
+    index++;
+    setTimeout(playNext, slide.duration * 1000);
+  }, 1000);
+}
+
+// 使用者互動後啟動（瀏覽器限制）
+document.body.addEventListener("click", () => {
+  if (index === 0) playNext();
+}, { once:true });
+</script>
 
 </body>
 </html>
