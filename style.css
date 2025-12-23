@@ -1,19 +1,31 @@
-/* 原本 CSS 保留 */
-
 /* 幻燈片時間軸 */
-#timelineWrapper {
-  margin-top: 15px;
-  text-align: center;
-}
 #timelineSlider {
-  width: 90%;
-  margin-bottom: 5px;
+    display: block;
+    margin: 10px auto 0 auto; /* 幻燈片下方置中 */
+    width: 80%;               /* 可調整寬度 */
+    height: 8px;              /* 高度 */
+    background: #444;         /* 滑桿底色 */
+    -webkit-appearance: none; /* 移除預設樣式 */
+    border-radius: 4px;
 }
-#timelineLabels {
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  margin: 0 auto;
-  font-size: 12px;
-  color: #00ff88;
+
+/* 滑塊 */
+#timelineSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #00ff88;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    margin-top: -4px; /* 置中滑塊 */
+}
+
+#timelineSlider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #00ff88;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
 }
