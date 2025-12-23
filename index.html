@@ -45,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   audio.addEventListener("timeupdate", () => {
     updateSlide(audio.currentTime);
-    if (audio.duration) {
-      slider.value = (audio.currentTime / audio.duration) * 100;
-    }
+    if (audio.duration) slider.value = (audio.currentTime / audio.duration) * 100;
   });
 
   slider.addEventListener("input", e => {
@@ -111,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // -------------------- 炫彩模擬 --------------------
   function updateSimulation(glass){
     const t = glassTrans[glass] || 1;
     const data = {};
@@ -123,22 +122,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const sim = document.getElementById('simulationArea');
     sim.innerHTML = '';
 
+    // 光電板漸層 + 脈衝
+    const colors = {
+      clear:['#4facfe','#00f2fe'],
+      red:['#ff416c','#ff4b2b'],
+      green:['#56ab2f','#a8e063'],
+      blue:['#36d1dc','#5b86e5'],
+      yellow:['#fceabb','#f8b500'],
+      darkBlue:['#141e30','#243b55'],
+      purple:['#654ea3','#eaafc8']
+    };
+    const c = colors[glass] || colors.clear;
+
     const panel = document.createElement('div');
     panel.className='solar-panel';
-    panel.style.cssText = `left:120px; top:90px; width:260px; height:90px; background:linear-gradient(135deg,#4facfe,#00f2fe); box-shadow:0 0 25px #4facfe;`;
+    panel.style.cssText = `
+      left:120px; top:90px; width:260px; height:90px;
+      background:linear-gradient(135deg,${c[0]},${c[1]});
+      box-shadow:0 0 30px ${c[0]};
+      border-radius:8px;
+      animation:pulse 2s infinite alternate;
+    `;
     sim.appendChild(panel);
 
+    // 光線動畫
     const ray = document.createElement('div');
     ray.className='light-ray incident-ray';
-    ray.style.cssText = `left:250px; top:20px; width:6px; height:70px; background:#00f2fe;`;
+    ray.style.cssText = `
+      left:250px; top:20px; width:6px; height:70px;
+      background:${c[1]};
+      animation:flow 1s linear infinite;
+    `;
     sim.appendChild(ray);
 
     const ray2 = document.createElement('div');
     ray2.className='light-ray refracted-ray';
-    ray2.style.cssText = `left:250px; top:110px; width:6px; height:120px; background:#4facfe; opacity:${t};`;
+    ray2.style.cssText = `
+      left:250px; top:110px; width:6px; height:120px;
+      background:${c[0]}; opacity:${t};
+      box-shadow:0 0 20px ${c[0]};
+      animation:flow 1.5s linear infinite;
+    `;
     sim.appendChild(ray2);
   }
 
-  document.getElementById('glassColor').addEventListener('change', e=>updateSimulation(e.target.value));
+  document.getElementById('glassColor').addEventListener('change', e => updateSimulation(e.target.value));
+
+  // -------------------- 動畫 Keyframes --------------------
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes pulse {
+      0% { box-shadow:0 0 10px; }
+      100% { box-shadow:0 0 40px; }
+    }
+    @keyframes flow {
+      0% { transform:translateY(0); }
+      100% { transform:translateY(20px); }
+    }
+  `;
+  document.head.appendChild(style);
+
   updateSimulation('clear');
+
 });
