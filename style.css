@@ -1,7 +1,19 @@
+/* 整體背景深色 */
+body {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 幻燈片區 */
 #viewer {
   position: relative;
-  width: 640px; /* 幻燈片寬度 */
-  margin: 20px auto 40px auto;
+  width: 90%; /* 放大到瀏覽器寬度90% */
+  max-width: 900px; /* 不超過900px */
+  margin: 20px auto;
+  text-align: center;
 }
 
 #slideImg {
@@ -11,33 +23,41 @@
   border-radius: 10px;
 }
 
+/* 時間軸 */
 #timelineSlider {
-  position: absolute;
-  bottom: 10px;
-  left: 5%;
   width: 90%;
-  height: 8px;
-  background: rgba(0,0,0,0.5);
-  -webkit-appearance: none;
-  border-radius: 4px;
+  margin: 10px auto;
+  display: block;
 }
 
-#timelineSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  background: #00ff88;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid #fff;
-  margin-top: -4px;
+/* 太陽能板模擬區 */
+#simulationWrapper {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto 60px auto;
+  background-color: #222222; /* 深色背景 */
+  padding: 20px;
+  border-radius: 10px;
 }
 
-#timelineSlider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: #00ff88;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid #fff;
+/* 太陽能板和光線 */
+.solar-panel {
+  position: absolute;
+  border-radius: 5px;
+}
+
+.light-ray {
+  position: absolute;
+}
+.incident-ray { background: #ffff88; }
+.refracted-ray { background: #ffdd55; }
+
+/* LED 表格顏色指示器 */
+.color-indicator {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  vertical-align: middle;
+  border-radius: 3px;
 }
