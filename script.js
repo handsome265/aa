@@ -62,40 +62,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // -------------------- 模擬資料 --------------------
-  const rawData = { red: 4.51, green: 3.64, blue: 3.79, yellow: 5.68, darkBlue: 1.69, purple: 3.25 };
+  const rawData = { red:4.51, green:3.64, blue:3.79, yellow:5.68, orange:4.90, darkBlue:1.69, purple:3.25, brown:2.5, gray:1.5 };
   const ledInfo = [
-    { name: '紅色', key: 'red', color: '#ff4d4d' },
-    { name: '綠色', key: 'green', color: '#4dff4d' },
-    { name: '藍色', key: 'blue', color: '#4da6ff' },
-    { name: '黃色', key: 'yellow', color: '#ffe44d' },
-    { name: '深藍', key: 'darkBlue', color: '#3d5afe' },
-    { name: '紫色', key: 'purple', color: '#b388ff' }
+    { name:'紅色', key:'red', color:'#ff4d4d' },
+    { name:'綠色', key:'green', color:'#4dff4d' },
+    { name:'藍色', key:'blue', color:'#4da6ff' },
+    { name:'黃色', key:'yellow', color:'#ffe44d' },
+    { name:'橙色', key:'orange', color:'#ffb347' },
+    { name:'深藍', key:'darkBlue', color:'#3d5afe' },
+    { name:'紫色', key:'purple', color:'#b388ff' },
+    { name:'棕色', key:'brown', color:'#a0522d' },
+    { name:'灰色', key:'gray', color:'#a9a9a9' }
   ];
 
   const glassTrans = { clear:1, lightBlue:0.85, green:0.75, yellow:0.7, orange:0.6, red:0.55, darkBlue:0.45, purple:0.4, brown:0.35, gray:0.25 };
 
-  const colors = {
-    clear: ['#4facfe','#00f2fe'],
-    lightBlue: ['#89f7fe','#66a6ff'],
-    green: ['#56ab2f','#a8e063'],
-    yellow: ['#fceabb','#f8b500'],
-    orange: ['#ff9a3c','#ff6a00'],
-    red: ['#ff416c','#ff4b2b'],
-    darkBlue: ['#141e30','#243b55'],
-    purple: ['#654ea3','#eaafc8'],
-    brown: ['#8b4513','#a0522d'],
-    gray: ['#6e6e6e','#b0b0b0']
-  };
-
   const ctx = document.getElementById('mainChart').getContext('2d');
   let chart = null;
 
-  function updateChart(data) {
+  function updateChart(data){
     if(chart) chart.destroy();
-    chart = new Chart(ctx, {
-      type: 'bar',
-      data: { labels: ledInfo.map(l => l.name), datasets:[{ data: ledInfo.map(l => data[l.key]), backgroundColor: ledInfo.map(l=>l.color) }] },
-      options: { responsive:true, plugins:{ legend:{ display:false } } }
+    chart = new Chart(ctx,{
+      type:'bar',
+      data:{
+        labels: ledInfo.map(l=>l.name),
+        datasets:[{ data: ledInfo.map(l=>data[l.key]), backgroundColor: ledInfo.map(l=>l.color) }]
+      },
+      options:{ responsive:true, plugins:{ legend:{ display:false } } }
     });
   }
 
@@ -115,13 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateTable(data){
     const tbody = document.getElementById('dataTable');
-    tbody.innerHTML = '';
+    tbody.innerHTML='';
     ledInfo.forEach(l=>{
       const row = tbody.insertRow();
-      row.innerHTML = `<td><span class="color-indicator" style="background:${l.color}"></span>${l.name}</td><td>${l.key}</td><td>${data[l.key].toFixed(2)}</td>`;
+      row.innerHTML=`<td><span class="color-indicator" style="background:${l.color}"></span>${l.name}</td><td>${l.key}</td><td>${data[l.key].toFixed(2)}</td>`;
     });
   }
 
+  // -------------------- 炫彩模擬 --------------------
   function updateSimulation(glass){
     const t = glassTrans[glass] || 1;
     const data = {};
@@ -132,13 +126,26 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTable(data);
 
     const sim = document.getElementById('simulationArea');
-    sim.innerHTML = '';
+    sim.innerHTML='';
 
+    const colors = {
+      clear:['#4facfe','#00f2fe'],
+      red:['#ff416c','#ff4b2b'],
+      green:['#56ab2f','#a8e063'],
+      blue:['#36d1dc','#5b86e5'],
+      yellow:['#fceabb','#f8b500'],
+      orange:['#ffb347','#ffcc33'],
+      darkBlue:['#141e30','#243b55'],
+      purple:['#654ea3','#eaafc8'],
+      brown:['#a0522d','#d2691e'],
+      gray:['#a9a9a9','#808080']
+    };
     const c = colors[glass] || colors.clear;
 
+    // 光電板
     const panel = document.createElement('div');
     panel.className='solar-panel';
-    panel.style.cssText = `
+    panel.style.cssText=`
       left:120px; top:90px; width:260px; height:90px;
       background:linear-gradient(135deg,${c[0]},${c[1]});
       box-shadow:0 0 30px ${c[0]};
@@ -147,9 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     sim.appendChild(panel);
 
+    // 光線
     const ray = document.createElement('div');
     ray.className='light-ray incident-ray';
-    ray.style.cssText = `
+    ray.style.cssText=`
       left:250px; top:20px; width:6px; height:70px;
       background:${c[1]};
       animation:flow 1s linear infinite;
@@ -158,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ray2 = document.createElement('div');
     ray2.className='light-ray refracted-ray';
-    ray2.style.cssText = `
+    ray2.style.cssText=`
       left:250px; top:110px; width:6px; height:120px;
       background:${c[0]}; opacity:${t};
       box-shadow:0 0 20px ${c[0]};
@@ -167,11 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sim.appendChild(ray2);
   }
 
-  document.getElementById('glassColor').addEventListener('change', e => updateSimulation(e.target.value));
+  document.getElementById('glassColor').addEventListener('change', e=>updateSimulation(e.target.value));
 
   // -------------------- 動畫 Keyframes --------------------
   const style = document.createElement('style');
-  style.textContent = `
+  style.textContent=`
     @keyframes pulse {
       0% { box-shadow:0 0 10px; }
       100% { box-shadow:0 0 40px; }
