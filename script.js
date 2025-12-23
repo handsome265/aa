@@ -3,10 +3,10 @@ const img = document.getElementById("slideImg");
 
 const slides = [
   { time: 0, src: "images/Thank you_page-0001.jpg" },
-  { time: 10, src: "images/Thank you_page-0002.jpg" },
-  { time: 20, src: "images/Thank you_page-0003.jpg" },
-  { time: 30, src: "images/Thank you_page-0004.jpg" },
-  { time: 40, src: "images/Thank you_page-0005.jpg" },
+  { time: 5, src: "images/Thank you_page-0002.jpg" },
+  { time: 8, src: "images/Thank you_page-0003.jpg" },
+  { time: 15, src: "images/Thank you_page-0004.jpg" },
+  { time: 20, src: "images/Thank you_page-0005.jpg" },
   { time: 50, src: "images/Thank you_page-0006.jpg" },
   { time: 60, src: "images/Thank you_page-0007.jpg" },
   { time: 70, src: "images/Thank you_page-0008.jpg" },
@@ -23,7 +23,7 @@ const slides = [
   { time: 180, src: "images/Thank you_page-0019.jpg" },
   { time: 190, src: "images/Thank you_page-0020.jpg" },
   { time: 200, src: "images/Thank you_page-0021.jpg" },
-  { time: 210, src: "images/__Thank you_page-0022.jpg__" },
+  { time: 210, src: "images/__Thank you_page-0022.jpg" },
   { time: 220, src: "images/Thank you_page-0023.jpg" },
   { time: 230, src: "images/Thank you_page-0024.jpg" }
 ];
