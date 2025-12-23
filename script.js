@@ -16,18 +16,18 @@ const slides = [
   { time: 176.75, src: "images/Thank_you_page-0010.jpg" },
   { time: 179.56, src: "images/Thank_you_page-0011.jpg" },
   { time: 189.22, src: "images/Thank_you_page-0012.jpg" },
-  { time: 207.88, src: "images/Thank_you_page-0013.jpg" },
-  { time: 208.84, src: "images/Thank_you_page-0014.jpg" },
-  { time: 209.87, src: "images/Thank_you_page-0015.jpg" },
-  { time: 210.83, src: "images/Thank_you_page-0016.jpg" },
-  { time: 211.53, src: "images/Thank_you_page-0017.jpg" },
-  { time: 212.56, src: "images/Thank_you_page-0018.jpg" },
-  { time: 213.85, src: "images/Thank_you_page-0019.jpg" },
-  { time: 223.88, src: "images/Thank_you_page-0020.jpg" },
-  { time: 256.91, src: "images/Thank_you_page-0021.jpg" },
-  { time: 284.33, src: "images/Thank_you_page-0022.jpg" },
-  { time: 312.91, src: "images/Thank_you_page-0023.jpg" },
-  { time: 341.59, src: "images/Thank_you_page-0024.jpg" }
+  { time: 205.88, src: "images/Thank_you_page-0013.jpg" },
+  { time: 206.84, src: "images/Thank_you_page-0014.jpg" },
+  { time: 207.87, src: "images/Thank_you_page-0015.jpg" },
+  { time: 208.83, src: "images/Thank_you_page-0016.jpg" },
+  { time: 209.53, src: "images/Thank_you_page-0017.jpg" },
+  { time: 210.56, src: "images/Thank_you_page-0018.jpg" },
+  { time: 211.85, src: "images/Thank_you_page-0019.jpg" },
+  { time: 221.88, src: "images/Thank_you_page-0020.jpg" },
+  { time: 251.91, src: "images/Thank_you_page-0021.jpg" },
+  { time: 279.33, src: "images/Thank_you_page-0022.jpg" },
+  { time: 317.91, src: "images/Thank_you_page-0023.jpg" },
+  { time: 338.59, src: "images/Thank_you_page-0024.jpg" }
 ];
 
 // 初始載入
