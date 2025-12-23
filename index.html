@@ -4,24 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>光電板模擬實驗</title>
+
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
+
 <body>
 
-<!-- 幻燈片區 -->
+<!-- ================= 幻燈片區 ================= -->
 <div id="viewer">
   <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
   <input type="range" id="timelineSlider" min="0" max="100" value="0">
 </div>
+
 <div id="startScreen">
   <button id="startBtn">▶ 開始播放</button>
 </div>
 
-<!-- 模擬實驗區 -->
+<!-- ================= 模擬實驗區 ================= -->
 <div id="simulationWrapper">
+
   <h2 style="color:#00ff88;">模擬實驗：光電板與 LED 電流</h2>
 
+  <!-- 🔬 實驗變因說明（新增） -->
+  <div class="variable-box">
+    <h3>🔬 實驗變因設定</h3>
+    <ul>
+      <li><strong>控制變因：</strong>入射角度 90°、材料折射率 3.96、材料厚度 3.2 mm</li>
+      <li><strong>操縱變因：</strong>玻璃紙顏色（透光率）</li>
+      <li><strong>應變變因：</strong>光學效率（η）</li>
+    </ul>
+  </div>
+
+  <!-- 操作區 -->
   <div class="control-panel">
     <label>🎨 玻璃紙顏色：
       <select id="glassColor">
@@ -42,18 +57,42 @@
     <div class="simulation-area" id="simulationArea"></div>
   </div>
 
+  <!-- 圖表 -->
   <div class="chart-container">
     <canvas id="mainChart"></canvas>
   </div>
+
+  <!-- 統計 -->
   <div class="stats-grid">
-    <div class="stat-card"><h3>最高電流</h3><div class="stat-value" id="maxCurrent">-</div><div id="maxLED">-</div></div>
-    <div class="stat-card"><h3>最低電流</h3><div class="stat-value" id="minCurrent">-</div><div id="minLED">-</div></div>
-    <div class="stat-card"><h3>平均電流</h3><div class="stat-value" id="avgCurrent">-</div><div>6色平均</div></div>
+    <div class="stat-card">
+      <h3>最高電流</h3>
+      <div class="stat-value" id="maxCurrent">-</div>
+      <div id="maxLED">-</div>
+    </div>
+    <div class="stat-card">
+      <h3>最低電流</h3>
+      <div class="stat-value" id="minCurrent">-</div>
+      <div id="minLED">-</div>
+    </div>
+    <div class="stat-card">
+      <h3>平均電流</h3>
+      <div class="stat-value" id="avgCurrent">-</div>
+      <div>6色平均</div>
+    </div>
   </div>
+
+  <!-- 表格 -->
   <table>
-    <thead><tr><th>LED 顏色</th><th>key</th><th>電流(mA)</th></tr></thead>
+    <thead>
+      <tr>
+        <th>LED 顏色</th>
+        <th>key</th>
+        <th>電流 (mA)</th>
+      </tr>
+    </thead>
     <tbody id="dataTable"></tbody>
   </table>
+
 </div>
 
 <script src="script.js"></script>
