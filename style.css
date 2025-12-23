@@ -1,63 +1,120 @@
-/* 整體背景深色 */
-body {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
+/* =========================
+   全站深色背景
+========================= */
+html, body {
   margin: 0;
   padding: 0;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
 }
 
-/* 幻燈片區 */
+/* =========================
+   幻燈片區（上方）
+========================= */
 #viewer {
-  position: relative;
-  width: 90%; /* 放大到瀏覽器寬度90% */
-  max-width: 900px; /* 不超過900px */
-  margin: 20px auto;
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
   text-align: center;
 }
 
+/* 幻燈片圖片 */
 #slideImg {
   width: 100%;
+  height: auto;
   display: block;
+  border-radius: 12px;
   border: 3px solid #00ff88;
-  border-radius: 10px;
+  background-color: #000;
 }
 
 /* 時間軸 */
 #timelineSlider {
   width: 90%;
-  margin: 10px auto;
+  margin: 15px auto 0 auto;
   display: block;
 }
 
-/* 太陽能板模擬區 */
+/* =========================
+   開始畫面
+========================= */
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#startBtn {
+  font-size: 24px;
+  padding: 14px 28px;
+  cursor: pointer;
+}
+
+/* =========================
+   模擬實驗區（下方，往下滑）
+========================= */
 #simulationWrapper {
   width: 90%;
-  max-width: 900px;
-  margin: 40px auto 60px auto;
-  background-color: #222222; /* 深色背景 */
-  padding: 20px;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 24px;
+  background-color: #1e1e1e;
+  border-radius: 14px;
+}
+
+/* 模擬畫面區 */
+.simulation-area {
+  position: relative;
+  height: 220px;
+  background: #111;
+  margin-top: 20px;
   border-radius: 10px;
 }
 
-/* 太陽能板和光線 */
+/* 太陽能板 */
 .solar-panel {
   position: absolute;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
+/* 光線 */
 .light-ray {
   position: absolute;
 }
-.incident-ray { background: #ffff88; }
-.refracted-ray { background: #ffdd55; }
 
-/* LED 表格顏色指示器 */
+.incident-ray {
+  background: rgba(255, 255, 150, 0.9);
+}
+
+.refracted-ray {
+  background: rgba(255, 200, 80, 0.9);
+}
+
+/* =========================
+   表格與小元件
+========================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border-bottom: 1px solid #444;
+  padding: 8px;
+  text-align: center;
+}
+
 .color-indicator {
   display: inline-block;
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
   vertical-align: middle;
   border-radius: 3px;
 }
