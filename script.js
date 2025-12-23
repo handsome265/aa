@@ -1,33 +1,48 @@
 const audio = new Audio("audio/part1.mp3");
 const img = document.getElementById("slideImg");
 
-// 每段幻燈片對應時間（秒）
 const slides = [
-  { time: 0, src: "images/Thank_you_page-0001.jpg" },   // 開場介紹 14s
-  { time: 14, src: "images/Thank_you_page-0002.jpg" },  // 研究動機 21s
-  { time: 35, src: "images/Thank_you_page-0003.jpg" },  // 程式設計基礎應用 24s
-  { time: 59, src: "images/Thank_you_page-0004.jpg" },  // 物理學概念與公式 29s
-  { time: 88, src: "images/Thank_you_page-0005.jpg" },  // 程式技術問題說明 36s
-  { time: 124, src: "images/Thank_you_page-0006.jpg" }, // 模擬實驗系統介紹 23s
-  { time: 147, src: "images/Thank_you_page-0007.jpg" }, // 實驗數據分析 26s
-  { time: 173, src: "images/Thank_you_page-0008.jpg" }, // 討論實驗結果 21s
-  { time: 194, src: "images/Thank_you_page-0009.jpg" }, // 進一步分析結論 26s
-  { time: 220, src: "images/Thank_you_page-0010.jpg" }, // 未來展望 26s
-  { time: 246, src: "images/Thank_you_page-0011.jpg" }  // 參考文獻與結尾 34s
+  { time: 0, src: "images/Thank_you_page-0001.jpg" },
+  { time: 15, src: "images/Thank_you_page-0002.jpg" },
+  { time: 18, src: "images/Thank_you_page-0003.jpg" },
+  { time: 41, src: "images/Thank_you_page-0004.jpg" },
+  { time: 69, src: "images/Thank_you_page-0005.jpg" },
+  { time: 95, src: "images/Thank_you_page-0006.jpg" },
+  { time: 100, src: "images/Thank_you_page-0007.jpg" },
+  { time: 141, src: "images/Thank_you_page-0008.jpg" },
+  { time: 145, src: "images/Thank_you_page-0009.jpg" },
+  { time: 153, src: "images/Thank_you_page-0010.jpg" },
+  { time: 181, src: "images/Thank_you_page-0011.jpg" },
+  { time: 184, src: "images/Thank_you_page-0012.jpg" },
+  { time: 200, src: "images/Thank_you_page-0013.jpg" },
+  { time: 202, src: "images/Thank_you_page-0014.jpg" },
+  { time: 203, src: "images/Thank_you_page-0015.jpg" },
+  { time: 204, src: "images/Thank_you_page-0016.jpg" },
+  { time: 205, src: "images/Thank_you_page-0017.jpg" },
+  { time: 206, src: "images/Thank_you_page-0018.jpg" },
+  { time: 207, src: "images/Thank_you_page-0019.jpg" },
+  { time: 218, src: "images/Thank_you_page-0020.jpg" },
+  { time: 233, src: "images/Thank_you_page-0021.jpg" },
+  { time: 276, src: "images/Thank_you_page-0022.jpg" },
+  { time: 307, src: "images/Thank_you_page-0023.jpg" },
+  { time: 343, src: "images/Thank_you_page-0024.jpg" }
 ];
 
+// 初始載入第一張圖片
 img.src = slides[0].src;
 
+// 切換圖片
 audio.addEventListener("timeupdate", () => {
   const t = audio.currentTime;
   for (let i = slides.length - 1; i >= 0; i--) {
     if (t >= slides[i].time) {
-      if (img.src !== slides[i].src) img.src = slides[i].src;
+      img.src = slides[i].src;
       break;
     }
   }
 });
 
+// 開始播放
 document.getElementById("startBtn").addEventListener("click", () => {
   document.getElementById("startScreen").style.display = "none";
   audio.currentTime = 0;
