@@ -94,3 +94,29 @@ tr:nth-child(even){ background: #3a3a4e; }
 
 /* LED 顏色小圓標 */
 .color-indicator { display:inline-block; width:15px; height:15px; border-radius:50%; margin-right:5px; vertical-align:middle; border:1px solid #555; }
+/* 幻燈片時間軸 */
+#timeline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 5px;
+}
+.timeline-item {
+  background: #222;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  border: 1px solid #00ff88;
+  transition: 0.2s;
+}
+.timeline-item:hover {
+  background: #00ff88;
+  color: #000;
+}
+.timeline-item.active {
+  background: #00ff88;
+  color: #000;
+}
