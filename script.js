@@ -39,9 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateSlide(time) {
     for (let i = slides.length - 1; i >= 0; i--) {
       if (time >= slides[i].time) {
-        if (!img.src.endsWith(slides[i].src)) {
-          img.src = slides[i].src;
-        }
+        img.src = slides[i].src;
         break;
       }
     }
@@ -55,11 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   slider.addEventListener("input", e => {
-    if (audio.duration) {
-      const t = (e.target.value / 100) * audio.duration;
-      audio.currentTime = t;
-      updateSlide(t);
-    }
+    if (!audio.duration) return;
+    const t = (e.target.value / 100) * audio.duration;
+    audio.currentTime = t;
+    updateSlide(t);
   });
 
   document.getElementById("startBtn").addEventListener("click", () => {
@@ -69,21 +66,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* =========================
-     太陽能板模擬
+     太陽能板模擬資料
   ========================= */
-
   const rawData = {
-    red: 4.51, green: 3.64, blue: 3.79,
-    yellow: 5.68, darkBlue: 1.69, purple: 3.25
+    red: 4.51,
+    green: 3.64,
+    blue: 3.79,
+    yellow: 5.68,
+    darkBlue: 1.69,
+    purple: 3.25
   };
 
   const ledInfo = [
-    { name: '紅色', nameEn: 'red', color: '#ff4d4d' },
-    { name: '綠色', nameEn: 'green', color: '#4dff4d' },
-    { name: '藍色', nameEn: 'blue', color: '#4da6ff' },
-    { name: '黃色', nameEn: 'yellow', color: '#ffe44d' },
-    { name: '深藍', nameEn: 'darkBlue', color: '#3d5afe' },
-    { name: '紫色', nameEn: 'purple', color: '#b388ff' }
+    { name: '紅色', key: 'red', color: '#ff4d4d' },
+    { name: '綠色', key: 'green', color: '#4dff4d' },
+    { name: '藍色', key: 'blue', color: '#4da6ff' },
+    { name: '黃色', key: 'yellow', color: '#ffe44d' },
+    { name: '深藍', key: 'darkBlue', color: '#3d5afe' },
+    { name: '紫色', key: 'purple', color: '#b388ff' }
   ];
 
   const glassTrans = {
@@ -99,10 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
     gray: 0.25
   };
 
-  const sim =
-    document.getElementById('simulationArea') ||
-    document.querySelector('.simulation-area');
-
+  /* =========================
+     Chart.js
+  ========================= */
   const ctx = document.getElementById('mainChart').getContext('2d');
   let chart = null;
 
@@ -113,94 +112,99 @@ document.addEventListener('DOMContentLoaded', () => {
       data: {
         labels: ledInfo.map(l => l.name),
         datasets: [{
-          data: ledInfo.map(l => data[l.nameEn]),
+          data: ledInfo.map(l => data[l.key]),
           backgroundColor: ledInfo.map(l => l.color)
         }]
       },
       options: {
-        responsive: true,
         plugins: { legend: { display: false } }
       }
     });
   }
 
+  /* =========================
+     統計數字
+  ========================= */
+  function updateStats(data) {
+    const values = Object.values(data);
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+
+    document.getElementById('maxCurrent').textContent = max.toFixed(2);
+    document.getElementById('minCurrent').textContent = min.toFixed(2);
+    document.getElementById('avgCurrent').textContent = avg.toFixed(2);
+
+    document.getElementById('maxLED').textContent =
+      ledInfo.find(l => data[l.key] === max).name;
+
+    document.getElementById('minLED').textContent =
+      ledInfo.find(l => data[l.key] === min).name;
+  }
+
+  /* =========================
+     表格
+  ========================= */
+  function updateTable(data) {
+    const tbody = document.getElementById('dataTable');
+    tbody.innerHTML = '';
+    ledInfo.forEach(l => {
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td><span class="color-indicator" style="background:${l.color}"></span>${l.name}</td>
+        <td>${data[l.key].toFixed(2)}</td>
+      `;
+    });
+  }
+
+  /* =========================
+     模擬主函式
+  ========================= */
   function updateSimulation(glass) {
+    document.getElementById('glassColorValue').textContent =
+      glass === 'clear' ? '透明' : glass;
+
     const t = glassTrans[glass];
     const data = {};
     for (let k in rawData) data[k] = rawData[k] * t;
 
     updateChart(data);
+    updateStats(data);
+    updateTable(data);
 
+    const sim = document.getElementById('simulationArea');
     sim.innerHTML = '';
-
-    const colorMap = {
-      clear: ['#4facfe', '#00f2fe'],
-      red: ['#ff416c', '#ff4b2b'],
-      green: ['#56ab2f', '#a8e063'],
-      yellow: ['#fceabb', '#f8b500'],
-      darkBlue: ['#141e30', '#243b55'],
-      purple: ['#654ea3', '#eaafc8']
-    };
-
-    const c = colorMap[glass] || colorMap.clear;
 
     const panel = document.createElement('div');
     panel.className = 'solar-panel';
-    panel.style.cssText = `
-      left:120px;
-      top:90px;
-      width:280px;
-      height:90px;
-      background:linear-gradient(135deg,${c[0]},${c[1]});
-      box-shadow:0 0 30px ${c[0]};
-      animation:pulse 2s infinite alternate;
-    `;
+    panel.style.left = '120px';
+    panel.style.top = '90px';
+    panel.style.width = '260px';
+    panel.style.height = '90px';
+    panel.style.background = 'linear-gradient(135deg,#4facfe,#00f2fe)';
+    panel.style.boxShadow = '0 0 25px #4facfe';
     sim.appendChild(panel);
 
     const ray = document.createElement('div');
     ray.className = 'light-ray incident-ray';
-    ray.style.cssText = `
-      left:260px;
-      top:20px;
-      width:6px;
-      height:70px;
-      background:${c[1]};
-      animation:flow 1s linear infinite;
-    `;
+    ray.style.left = '250px';
+    ray.style.top = '20px';
+    ray.style.width = '6px';
+    ray.style.height = '70px';
     sim.appendChild(ray);
 
     const ray2 = document.createElement('div');
     ray2.className = 'light-ray refracted-ray';
-    ray2.style.cssText = `
-      left:260px;
-      top:110px;
-      width:6px;
-      height:120px;
-      background:${c[0]};
-      opacity:${t};
-      box-shadow:0 0 15px ${c[0]};
-    `;
+    ray2.style.left = '250px';
+    ray2.style.top = '110px';
+    ray2.style.width = '6px';
+    ray2.style.height = '120px';
+    ray2.style.opacity = t;
     sim.appendChild(ray2);
   }
 
   document.getElementById('glassColor')
     .addEventListener('change', e => updateSimulation(e.target.value));
-
-  /* =========================
-     動畫（保險）
-  ========================= */
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes pulse {
-      from { box-shadow:0 0 10px; }
-      to { box-shadow:0 0 40px; }
-    }
-    @keyframes flow {
-      from { transform:translateY(0); }
-      to { transform:translateY(20px); }
-    }
-  `;
-  document.head.appendChild(style);
 
   updateSimulation('clear');
 });
