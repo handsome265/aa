@@ -12,28 +12,58 @@ body {
 /* 幻燈片區 */
 #viewer { text-align: center; margin-bottom: 50px; }
 #slideImg { max-width: 90%; height: auto; border: 3px solid #00ff88; border-radius: 10px; }
-#startScreen { text-align: center; margin-top: 20px; }
+
+/* 幻燈片開始播放按鈕 */
+#startScreen { text-align: center; margin-bottom: 50px; }
 
 /* 下方模擬實驗區 */
-#simulationWrapper { margin-top: 200px; } /* 需要滾輪下滑才能看到 */
+#simulationWrapper { margin-top: 200px; } /* 滾輪下滑才能看到 */
 
 /* 模擬實驗容器 */
-.container { display: grid; grid-template-columns: 400px 1fr; gap: 20px; max-width: 1600px; margin: 0 auto; }
+.container {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
 
 /* 控制面板 */
-.control-panel { background: linear-gradient(135deg,#1a1a2e,#16213e); padding: 20px; border-radius: 15px; border: 2px solid #00ff88; }
-.control-group { margin-bottom: 25px; background: rgba(0,255,136,0.1); padding: 15px; border-radius: 10px; }
+.control-panel {
+    background: linear-gradient(135deg,#1a1a2e,#16213e);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #00ff88;
+}
+.control-group {
+    margin-bottom: 25px;
+    background: rgba(0,255,136,0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
 .control-group h3 { color: #00ff88; margin: 0 0 15px 0; }
-.value-display { width: 85px; text-align: right; font-size: 13px; color: #00ff88; font-weight: bold; }
 
 /* 模擬光線區 */
-.simulation-area { background: #111; height: 250px; border: 3px solid #00ff88; border-radius: 15px; position: relative; overflow: hidden; margin-bottom: 20px; }
+.simulation-area {
+    background: #111;
+    height: 250px;
+    border: 3px solid #00ff88;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+/* 光線動畫 */
 .light-ray { position: absolute; border-radius: 2px; animation: pulse 2s infinite; }
 .incident-ray { background: linear-gradient(to bottom,transparent,#ffff00,#ffff00); box-shadow:0 0 8px #ffff00; }
 .refracted-ray { background: linear-gradient(to bottom,#00ff88,transparent); box-shadow:0 0 8px #00ff88; }
-.solar-panel { position: absolute; border-radius: 5px; border:3px solid #00ff88; box-shadow:0 0 15px rgba(0,255,136,0.4); }
-.panel-surface { position:absolute; top:0; left:0; right:0; height:4px; background:#00ff88; box-shadow:0 0 10px #00ff88; }
-@keyframes pulse { 0%{opacity:0.7;}50%{opacity:1;}100%{opacity:0.7;} }
+
+/* 太陽能板 */
+.solar-panel { position: absolute; border-radius: 5px; border: 3px solid #00ff88; box-shadow:0 0 15px rgba(0,255,136,0.4); }
+.panel-surface { position: absolute; top:0; left:0; right:0; height:4px; background:#00ff88; box-shadow:0 0 10px #00ff88; }
+
+@keyframes pulse { 0% {opacity:0.7;} 50% {opacity:1;} 100% {opacity:0.7;} }
 
 /* 圖表與統計面板 */
 .chart-container { background:#2a2a3e; border-radius:15px; padding:20px; margin-bottom:20px; }
@@ -47,5 +77,7 @@ body {
 table { width:100%; border-radius:10px; overflow:hidden; margin-top:10px; }
 th, td { padding:8px; text-align:center; color:#fff; }
 th { background:#00ff88; color:#000; }
-tr:nth-child(even){background:#3a3a4e;}
+tr:nth-child(even) { background:#3a3a4e; }
+
+/* LED 顏色小圓標 */
 .color-indicator { display:inline-block; width:15px; height:15px; border-radius:50%; margin-right:5px; vertical-align:middle; border:1px solid #555; }
