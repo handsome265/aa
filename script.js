@@ -74,6 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const glassTrans = { clear:1, lightBlue:0.85, green:0.75, yellow:0.7, orange:0.6, red:0.55, darkBlue:0.45, purple:0.4, brown:0.35, gray:0.25 };
 
+  const colors = {
+    clear: ['#4facfe','#00f2fe'],
+    lightBlue: ['#89f7fe','#66a6ff'],
+    green: ['#56ab2f','#a8e063'],
+    yellow: ['#fceabb','#f8b500'],
+    orange: ['#ff9a3c','#ff6a00'],
+    red: ['#ff416c','#ff4b2b'],
+    darkBlue: ['#141e30','#243b55'],
+    purple: ['#654ea3','#eaafc8'],
+    brown: ['#8b4513','#a0522d'],
+    gray: ['#6e6e6e','#b0b0b0']
+  };
+
   const ctx = document.getElementById('mainChart').getContext('2d');
   let chart = null;
 
@@ -109,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // -------------------- 炫彩模擬 --------------------
   function updateSimulation(glass){
     const t = glassTrans[glass] || 1;
     const data = {};
@@ -122,16 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sim = document.getElementById('simulationArea');
     sim.innerHTML = '';
 
-    // 光電板漸層 + 脈衝
-    const colors = {
-      clear:['#4facfe','#00f2fe'],
-      red:['#ff416c','#ff4b2b'],
-      green:['#56ab2f','#a8e063'],
-      blue:['#36d1dc','#5b86e5'],
-      yellow:['#fceabb','#f8b500'],
-      darkBlue:['#141e30','#243b55'],
-      purple:['#654ea3','#eaafc8']
-    };
     const c = colors[glass] || colors.clear;
 
     const panel = document.createElement('div');
@@ -145,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     sim.appendChild(panel);
 
-    // 光線動畫
     const ray = document.createElement('div');
     ray.className='light-ray incident-ray';
     ray.style.cssText = `
