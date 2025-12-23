@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>報告 + 模擬實驗</title>
+<title>光電板模擬實驗</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
 
@@ -14,8 +14,6 @@
   <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
   <input type="range" id="timelineSlider" min="0" max="100" value="0">
 </div>
-
-<!-- 開始播放按鈕 -->
 <div id="startScreen">
   <button id="startBtn">▶ 開始播放</button>
 </div>
@@ -23,67 +21,41 @@
 <!-- 模擬實驗區 -->
 <div id="simulationWrapper">
   <h2 style="color:#00ff88;">模擬實驗：光電板與 LED 電流</h2>
-  <div class="container">
 
-    <!-- 左側控制面板 -->
-    <div class="control-panel">
-      <div class="control-group">
-        <h3>🎨 玻璃紙顏色</h3>
-        <select id="glassColor">
-          <option value="clear">透明(100%)</option>
-          <option value="lightBlue">淺藍(85%)</option>
-          <option value="green">綠色(75%)</option>
-          <option value="yellow">黃色(70%)</option>
-          <option value="orange">橙色(60%)</option>
-          <option value="red">紅色(55%)</option>
-          <option value="darkBlue">深藍(45%)</option>
-          <option value="purple">紫色(40%)</option>
-          <option value="brown">棕色(35%)</option>
-          <option value="gray">灰色(25%)</option>
-        </select>
-        <span class="value-display" id="glassColorValue">透明</span>
-      </div>
-      <div class="simulation-area" id="simulationArea"></div>
-    </div>
+  <div class="control-panel">
+    <label>🎨 玻璃紙顏色：
+      <select id="glassColor">
+        <option value="clear">透明(100%)</option>
+        <option value="lightBlue">淺藍(85%)</option>
+        <option value="green">綠色(75%)</option>
+        <option value="yellow">黃色(70%)</option>
+        <option value="orange">橙色(60%)</option>
+        <option value="red">紅色(55%)</option>
+        <option value="darkBlue">深藍(45%)</option>
+        <option value="purple">紫色(40%)</option>
+        <option value="brown">棕色(35%)</option>
+        <option value="gray">灰色(25%)</option>
+      </select>
+      <span id="glassColorValue">透明</span>
+    </label>
 
-    <!-- 右側 LED 統計與圖表 -->
-    <div class="chart-panel">
-      <div class="chart-container">
-        <canvas id="mainChart"></canvas>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h3>最高電流</h3>
-          <div class="stat-value" id="maxCurrent">-</div>
-          <div class="stat-label" id="maxLED">-</div>
-        </div>
-        <div class="stat-card">
-          <h3>最低電流</h3>
-          <div class="stat-value" id="minCurrent">-</div>
-          <div class="stat-label" id="minLED">-</div>
-        </div>
-        <div class="stat-card">
-          <h3>平均電流</h3>
-          <div class="stat-value" id="avgCurrent">-</div>
-          <div class="stat-label">6色平均</div>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>LED 顏色</th>
-            <th>波長</th>
-            <th>電流(mA)</th>
-          </tr>
-        </thead>
-        <tbody id="dataTable"></tbody>
-      </table>
-    </div>
-
+    <div class="simulation-area" id="simulationArea"></div>
   </div>
+
+  <div class="chart-container">
+    <canvas id="mainChart"></canvas>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><h3>最高電流</h3><div class="stat-value" id="maxCurrent">-</div><div id="maxLED">-</div></div>
+    <div class="stat-card"><h3>最低電流</h3><div class="stat-value" id="minCurrent">-</div><div id="minLED">-</div></div>
+    <div class="stat-card"><h3>平均電流</h3><div class="stat-value" id="avgCurrent">-</div><div>6色平均</div></div>
+  </div>
+  <table>
+    <thead><tr><th>LED 顏色</th><th>key</th><th>電流(mA)</th></tr></thead>
+    <tbody id="dataTable"></tbody>
+  </table>
 </div>
 
-<!-- 引入 JS -->
 <script src="script.js"></script>
 </body>
 </html>
