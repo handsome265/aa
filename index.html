@@ -6,109 +6,113 @@
 <title>報告 + 模擬實驗</title>
 <link rel="stylesheet" href="style.css">
 <style>
-body { margin:0; padding:20px; font-family:'Segoe UI',sans-serif; background:#000; color:#fff; }
-#viewer { text-align:center; margin-bottom:50px; }
-#slideImg { max-width:90%; height:auto; border:3px solid #00ff88; border-radius:10px; }
-#simulationWrapper { margin-top:100px; } /* 模擬區與幻燈片有間距 */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    background: #000;
+    color: #fff;
+}
+#viewer {
+    text-align: center;
+    margin-bottom: 50px;
+}
+#slideImg {
+    max-width: 90%;
+    height: auto;
+    border: 3px solid #00ff88;
+    border-radius: 10px;
+}
+#startScreen {
+    text-align: center;
+    margin-top: 20px;
+}
+#simulationWrapper {
+    margin-top: 200px; /* 讓使用者需要滾輪下滑才能看到 */
+}
+.container {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.control-panel {
+    background: linear-gradient(135deg,#1a1a2e,#16213e);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #00ff88;
+}
+.control-group {
+    margin-bottom: 25px;
+    background: rgba(0,255,136,0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+.control-group h3 {
+    color: #00ff88;
+    margin: 0 0 15px 0;
+}
+.simulation-area {
+    background: #111;
+    height: 250px;
+    border: 3px solid #00ff88;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
 
 <!-- 幻燈片區 -->
 <div id="viewer">
-  <img id="slideImg" src="images/Thank you_page-0001.jpg">
+    <img id="slideImg" src="images/Thank_you_page-0001.jpg">
 </div>
 <div id="startScreen">
-  <button id="startBtn">▶ 開始播放</button>
+    <button id="startBtn">▶ 開始播放</button>
 </div>
 
 <!-- 下方模擬實驗區 -->
 <div id="simulationWrapper">
-  <h2 style="color:#00ff88;">模擬實驗：光電板與 LED 電流</h2>
-  <div class="container">
-      <!-- 控制面板 -->
-      <div class="control-panel">
-          <div class="control-group">
-              <h3>🎨 玻璃紙顏色</h3>
-              <select id="glassColor">
-                  <option value="clear">透明(100%)</option>
-                  <option value="lightBlue">淺藍(85%)</option>
-                  <option value="green">綠色(75%)</option>
-                  <option value="yellow">黃色(70%)</option>
-                  <option value="orange">橙色(60%)</option>
-                  <option value="red">紅色(55%)</option>
-                  <option value="darkBlue">深藍(45%)</option>
-                  <option value="purple">紫色(40%)</option>
-                  <option value="brown">棕色(35%)</option>
-                  <option value="gray">灰色(25%)</option>
-              </select>
-              <span class="value-display" id="glassColorValue">透明</span>
-          </div>
-          <div class="simulation-area" id="simulationArea" style="height:250px;"></div>
-      </div>
-      <!-- LED 圖表 -->
-      <div>
-          <canvas id="mainChart"></canvas>
-          <div id="dataTable"></div>
-      </div>
-  </div>
+    <h2 style="color:#00ff88;">模擬實驗：光電板與 LED 電流</h2>
+    <div class="container">
+        <!-- 控制面板 -->
+        <div class="control-panel">
+            <div class="control-group">
+                <h3>🎨 玻璃紙顏色</h3>
+                <select id="glassColor">
+                    <option value="clear">透明(100%)</option>
+                    <option value="lightBlue">淺藍(85%)</option>
+                    <option value="green">綠色(75%)</option>
+                    <option value="yellow">黃色(70%)</option>
+                    <option value="orange">橙色(60%)</option>
+                    <option value="red">紅色(55%)</option>
+                    <option value="darkBlue">深藍(45%)</option>
+                    <option value="purple">紫色(40%)</option>
+                    <option value="brown">棕色(35%)</option>
+                    <option value="gray">灰色(25%)</option>
+                </select>
+                <span class="value-display" id="glassColorValue">透明</span>
+            </div>
+            <div class="simulation-area" id="simulationArea"></div>
+        </div>
+
+        <!-- LED 圖表面板 -->
+        <div>
+            <canvas id="mainChart"></canvas>
+            <div id="dataTable"></div>
+        </div>
+    </div>
 </div>
 
+<!-- Chart.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-<script>
-// 幻燈片 JS
-const audio = new Audio("audio/part1.mp3");
-const img = document.getElementById("slideImg");
-const slides = [
-  { time: 0, src: "images/Thank you_page-0001.jpg" },
-  { time: 15, src: "images/Thank you_page-0002.jpg" },
-  { time: 18, src: "images/Thank you_page-0003.jpg" },
-  { time: 41, src: "images/Thank you_page-0004.jpg" },
-  { time: 69, src: "images/Thank you_page-0005.jpg" }
-  // ... 依序補上 24 張
-];
-img.src = slides[0].src;
-audio.addEventListener("timeupdate", ()=>{
-  const t = audio.currentTime;
-  for(let i=slides.length-1;i>=0;i--){
-    if(t>=slides[i].time){
-      if(img.src.indexOf(slides[i].src)===-1) img.src=slides[i].src;
-      break;
-    }
-  }
-});
-document.getElementById("startBtn").addEventListener("click", ()=>{
-  document.getElementById("startScreen").style.display="none";
-  audio.currentTime=0; audio.play();
-});
-
-// 模擬實驗 JS
-const rawData={red:4.51,green:3.64,blue:3.79,yellow:5.68,darkBlue:1.69,purple:3.25};
-const ledInfo=[
-  {name:'紅色',nameEn:'red',color:'#FF0000'},
-  {name:'綠色',nameEn:'green',color:'#00FF00'},
-  {name:'藍色',nameEn:'blue',color:'#87CEEB'},
-  {name:'黃色',nameEn:'yellow',color:'#FFFF00'},
-  {name:'深藍',nameEn:'darkBlue',color:'#00008B'},
-  {name:'紫色',nameEn:'purple',color:'#9370DB'}
-];
-const glassTrans={clear:1,lightBlue:0.85,green:0.75,yellow:0.7,orange:0.6,red:0.55,darkBlue:0.45,purple:0.4,brown:0.35,gray:0.25};
-
-let ctx=document.getElementById('mainChart').getContext('2d'); let chart=null;
-function updateChart(currentData){
-  const labels=ledInfo.map(d=>d.name);
-  const data=ledInfo.map(d=>currentData[d.nameEn]);
-  if(chart) chart.destroy();
-  chart=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{label:'電流(mA)',data:data,backgroundColor:ledInfo.map(d=>d.color)}]},options:{responsive:true,plugins:{legend:{display:false}}}});
-}
-function updateSimulation(glass){
-  const t=glassTrans[glass]; const currentData={};
-  for(let k in rawData) currentData[k]=rawData[k]*t;
-  updateChart(currentData);
-}
-document.getElementById('glassColor').addEventListener('change',e=>updateSimulation(e.target.value));
-updateSimulation('clear');
-</script>
+<!-- 幻燈片播放 JS -->
+<script src="slides.js"></script>
+<!-- 模擬實驗 JS -->
+<script src="simulation.js"></script>
 
 </body>
 </html>
