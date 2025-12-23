@@ -1,35 +1,19 @@
-const slides = document.querySelectorAll(".slide");
-
-const audioFiles = [
-  "audio/part1.mp3",
-  "audio/part2.mp3",
-  "audio/part3.mp3",
-  "audio/part4.mp3",
-  "audio/part5.mp3"
-];
-
-let current = 0;
-const audio = new Audio();
-
-function showSlide(index) {
-  slides.forEach(slide => slide.classList.remove("active"));
-  slides[index].classList.add("active");
-
-  audio.src = audioFiles[index];
-  audio.currentTime = 0;
-  audio.play();
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-audio.addEventListener("ended", () => {
-  current++;
-  if (current < slides.length) {
-    showSlide(current);
-  }
-});
-
-// 開始播放（關鍵）
-document.getElementById("startBtn").addEventListener("click", () => {
-  document.getElementById("startScreen").style.display = "none";
-  current = 0;
-  showSlide(current);
-});
+#startBtn {
+  font-size: 28px;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 10px;
+  background: #1f4fd8;
+  color: white;
+  cursor: pointer;
+}
