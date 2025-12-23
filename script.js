@@ -29,7 +29,7 @@ const slides = [
   { time: 305.78, src: "images/Thank_you_page-0024.jpg" }
 ];
 
-// 初始載入第一張圖片
+// 初始載入第一張
 img.src = slides[0].src;
 
 // 切換圖片
@@ -37,10 +37,7 @@ audio.addEventListener("timeupdate", () => {
   const t = audio.currentTime;
   for (let i = slides.length - 1; i >= 0; i--) {
     if (t >= slides[i].time) {
-      // 避免重複賦值
-      if (!img.src.endsWith(slides[i].src)) {
-        img.src = slides[i].src;
-      }
+      if (!img.src.endsWith(slides[i].src)) img.src = slides[i].src;
       break;
     }
   }
