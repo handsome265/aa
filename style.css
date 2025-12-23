@@ -67,6 +67,34 @@ html, body {
   border-radius: 14px;
 }
 
+/* =========================
+   實驗變因說明區（新增）
+========================= */
+.variable-box {
+  background: linear-gradient(135deg, #0f2f24, #123a2d);
+  border: 2px solid #00ff88;
+  border-radius: 12px;
+  padding: 16px 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.25);
+}
+
+.variable-box h3 {
+  margin: 0 0 10px 0;
+  color: #00ff88;
+  font-size: 20px;
+}
+
+.variable-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.variable-box li {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
 /* 模擬畫面區 */
 .simulation-area {
   position: relative;
