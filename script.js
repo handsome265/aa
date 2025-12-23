@@ -25,6 +25,7 @@ const slides = [
   { time: 225.80, src: "images/Thank_you_page-0021.jpg" }, // 第21圈 16.48秒
   { time: 242.28, src: "images/Thank_you_page-0022.jpg" }, // 第22圈 41.50秒
   { time: 283.78, src: "images/Thank_you_page-0023.jpg" }  // 第23圈 20.45秒
+  { time: 305.78, src: "images/Thank_you_page-0023.jpg" }  // 第24圈 
 ];
 
 // 初始載入第一張圖片
