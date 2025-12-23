@@ -8,22 +8,28 @@ const audioFiles = [
   "audio/part5.mp3"
 ];
 
-let index = 0;
+let current = 0;
 const audio = new Audio();
 
-function playSlide(i) {
+function showSlide(index) {
   slides.forEach(slide => slide.classList.remove("active"));
-  slides[i].classList.add("active");
+  slides[index].classList.add("active");
 
-  audio.src = audioFiles[i];
+  audio.src = audioFiles[index];
+  audio.currentTime = 0;
   audio.play();
-
-  audio.onended = () => {
-    if (i + 1 < slides.length) {
-      playSlide(i + 1);
-    }
-  };
 }
 
-playSlide(0);
+audio.addEventListener("ended", () => {
+  current++;
+  if (current < slides.length) {
+    showSlide(current);
+  }
+});
 
+// 開始播放（關鍵）
+document.getElementById("startBtn").addEventListener("click", () => {
+  document.getElementById("startScreen").style.display = "none";
+  current = 0;
+  showSlide(current);
+});
