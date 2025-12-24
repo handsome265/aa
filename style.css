@@ -10,17 +10,23 @@ html, body {
 }
 
 /* =========================
-   幻燈片區（上方）
+   幻燈片區
 ========================= */
-#viewer {
+#viewerWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   width: 90%;
   max-width: 1000px;
   margin: 30px auto;
-  text-align: center;
   position: relative;
 }
 
-/* 幻燈片圖片 */
+#viewer {
+  flex: 1;
+  text-align: center;
+}
+
 #slideImg {
   width: 100%;
   height: auto;
@@ -30,7 +36,6 @@ html, body {
   background-color: #000;
 }
 
-/* 時間軸 */
 #timelineSlider {
   width: 90%;
   margin: 15px auto 0 auto;
@@ -41,17 +46,17 @@ html, body {
    暫停按鈕
 ========================= */
 #pauseBtn {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  z-index: 10;
-  padding: 4px 8px;
-  font-size: 16px;
+  margin-left: 12px;
+  height: 36px;
+  width: 36px;
   cursor: pointer;
-  background-color: #00ff88;
-  border: none;
   border-radius: 6px;
+  border: none;
+  background-color: #00ff88;
   color: #000;
+  font-size: 18px;
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
 /* =========================
@@ -74,7 +79,7 @@ html, body {
 }
 
 /* =========================
-   模擬實驗區（下方，往下滑）
+   模擬實驗區
 ========================= */
 #simulationWrapper {
   width: 90%;
@@ -141,9 +146,7 @@ html, body {
   background: rgba(255, 200, 80, 0.9);
 }
 
-/* =========================
-   表格與小元件
-========================= */
+/* 表格與小元件 */
 table {
   width: 100%;
   border-collapse: collapse;
