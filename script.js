@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const audio = new Audio("audio/part1.mp3");
   const img = document.getElementById("slideImg");
   const slider = document.getElementById("timelineSlider");
+  const pauseBtn = document.getElementById('pauseBtn');
 
   const slides = [
     { time: 0.00, src: "images/Thank_you_page-0001.jpg" },
@@ -55,12 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById("startBtn").addEventListener("click", () => {
+    document.getElementById("startScreen").style.display = "none";
     audio.currentTime = 0;
     audio.play();
+    pauseBtn.textContent = '⏸';
   });
 
   // -------------------- 暫停按鈕 --------------------
-  const pauseBtn = document.getElementById('pauseBtn');
   pauseBtn.addEventListener('click', () => {
     if (!audio.paused) {
       audio.pause();
@@ -162,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('glassColor').addEventListener('change', e=>updateSimulation(e.target.value));
 
+  // Keyframes
   const style=document.createElement('style');
   style.textContent=`@keyframes pulse{0%{box-shadow:0 0 10px;}100%{box-shadow:0 0 40px;}}@keyframes flow{0%{transform:translateY(0);}100%{transform:translateY(20px);}}`;
   document.head.appendChild(style);
