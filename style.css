@@ -10,23 +10,17 @@ html, body {
 }
 
 /* =========================
-   幻燈片區
+   幻燈片區（上方）
 ========================= */
-#viewerWrapper {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+#viewer {
   width: 90%;
   max-width: 1000px;
   margin: 30px auto;
   position: relative;
-}
-
-#viewer {
-  flex: 1;
   text-align: center;
 }
 
+/* 幻燈片圖片 */
 #slideImg {
   width: 100%;
   height: auto;
@@ -36,27 +30,11 @@ html, body {
   background-color: #000;
 }
 
+/* 時間軸 */
 #timelineSlider {
   width: 90%;
   margin: 15px auto 0 auto;
   display: block;
-}
-
-/* =========================
-   暫停按鈕
-========================= */
-#pauseBtn {
-  margin-left: 12px;
-  height: 36px;
-  width: 36px;
-  cursor: pointer;
-  border-radius: 6px;
-  border: none;
-  background-color: #00ff88;
-  color: #000;
-  font-size: 18px;
-  align-self: flex-start;
-  flex-shrink: 0;
 }
 
 /* =========================
@@ -76,6 +54,29 @@ html, body {
   font-size: 24px;
   padding: 14px 28px;
   cursor: pointer;
+}
+
+/* =========================
+   暫停鍵樣式
+========================= */
+#pauseBtn {
+  position: absolute;
+  left: -50px; /* 靠幻燈片左側 */
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #00ff88;
+  border: none;
+  border-radius: 6px;
+  color: #121212;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+#pauseBtn:hover {
+  background-color: #00cc66;
 }
 
 /* =========================
@@ -146,7 +147,9 @@ html, body {
   background: rgba(255, 200, 80, 0.9);
 }
 
-/* 表格與小元件 */
+/* =========================
+   表格與小元件
+========================= */
 table {
   width: 100%;
   border-collapse: collapse;
