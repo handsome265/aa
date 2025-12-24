@@ -12,14 +12,14 @@
 
 <!-- ================= 幻燈片區 ================= -->
 <div id="viewer">
+  <button id="pauseBtn">⏸</button>
   <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
   <input type="range" id="timelineSlider" min="0" max="100" value="0">
 </div>
 
-<!-- 開始與暫停按鈕 -->
+<!-- 開始按鈕 -->
 <div id="startScreen">
   <button id="startBtn">▶ 開始播放</button>
-  <button id="pauseBtn">⏸ 暫停</button>
 </div>
 
 <!-- ================= 模擬實驗區 ================= -->
@@ -27,7 +27,6 @@
 
   <h2 style="color:#00ff88;">模擬實驗：光電板與 LED 電流</h2>
 
-  <!-- 🔬 實驗變因說明 -->
   <div class="variable-box">
     <h3>🔬 實驗變因設定</h3>
     <ul>
@@ -37,7 +36,6 @@
     </ul>
   </div>
 
-  <!-- 操作區 -->
   <div class="control-panel">
     <label>🎨 玻璃紙顏色：
       <select id="glassColor">
@@ -58,12 +56,10 @@
     <div class="simulation-area" id="simulationArea"></div>
   </div>
 
-  <!-- 圖表 -->
   <div class="chart-container">
     <canvas id="mainChart"></canvas>
   </div>
 
-  <!-- 統計 -->
   <div class="stats-grid">
     <div class="stat-card">
       <h3>最高電流</h3>
@@ -82,7 +78,6 @@
     </div>
   </div>
 
-  <!-- 表格 -->
   <table>
     <thead>
       <tr>
