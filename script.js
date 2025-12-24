@@ -51,18 +51,20 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSlide(t);
   });
 
-  // 開始/暫停合一
+  // 播放/暫停按鈕
   playPauseBtn.addEventListener("click", ()=>{
     if(audio.paused){
       audio.play();
       playPauseBtn.textContent = "⏸ 暫停";
-    }else{
+    } else {
       audio.pause();
       playPauseBtn.textContent = "▶ 播放";
     }
   });
 
-  // -------------------- 光電板模擬 --------------------
+  playPauseBtn.textContent = "▶ 開始";
+
+  // ---------------- 光電板模擬 (保持不變) ----------------
   const rawData = { red:4.51, green:3.64, blue:3.79, yellow:5.68, darkBlue:1.69, purple:3.25 };
   const ledInfo = [
     {name:'紅色', key:'red', color:'#ff4d4d'},
@@ -74,16 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   const glassTrans = { clear:1, lightBlue:0.85, green:0.75, yellow:0.7, orange:0.6, red:0.55, darkBlue:0.45, purple:0.4, brown:0.35, gray:0.25 };
   const colors = {
-    clear:['#4facfe','#00f2fe'],
-    lightBlue:['#6ec1ff','#1e90ff'],
-    green:['#56ab2f','#a8e063'],
-    yellow:['#fceabb','#f8b500'],
-    orange:['#ffb347','#ffcc33'],
-    red:['#ff416c','#ff4b2b'],
-    darkBlue:['#141e30','#243b55'],
-    purple:['#654ea3','#eaafc8'],
-    brown:['#a0522d','#d2691e'],
-    gray:['#a9a9a9','#808080']
+    clear:['#4facfe','#00f2fe'], lightBlue:['#6ec1ff','#1e90ff'], green:['#56ab2f','#a8e063'],
+    yellow:['#fceabb','#f8b500'], orange:['#ffb347','#ffcc33'], red:['#ff416c','#ff4b2b'],
+    darkBlue:['#141e30','#243b55'], purple:['#654ea3','#eaafc8'], brown:['#a0522d','#d2691e'], gray:['#a9a9a9','#808080']
   };
 
   const ctx = document.getElementById('mainChart').getContext('2d');
@@ -91,12 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateChart(data){
     if(chart) chart.destroy();
-    chart = new Chart(ctx,{
-      type:'bar',
-      data:{
-        labels:ledInfo.map(l=>l.name),
-        datasets:[{data:ledInfo.map(l=>data[l.key]), backgroundColor:ledInfo.map(l=>l.color)}]
-      },
+    chart = new Chart(ctx,{ type:'bar',
+      data:{ labels:ledInfo.map(l=>l.name), datasets:[{data:ledInfo.map(l=>data[l.key]), backgroundColor:ledInfo.map(l=>l.color)}]},
       options:{responsive:true, plugins:{legend:{display:false}}}
     });
   }
@@ -153,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('glassColor').addEventListener('change', e=>updateSimulation(e.target.value));
 
-  // Keyframes
   const style=document.createElement('style');
   style.textContent=`@keyframes pulse{0%{box-shadow:0 0 10px;}100%{box-shadow:0 0 40px;}}@keyframes flow{0%{transform:translateY(0);}100%{transform:translateY(20px);}}`;
   document.head.appendChild(style);
