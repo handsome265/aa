@@ -19,7 +19,6 @@ html, body {
   text-align: center;
 }
 
-/* 幻燈片圖片 */
 #slideImg {
   width: 100%;
   height: auto;
@@ -29,7 +28,6 @@ html, body {
   background-color: #000;
 }
 
-/* 時間軸 */
 #timelineSlider {
   width: 90%;
   margin: 15px auto 0 auto;
@@ -37,26 +35,41 @@ html, body {
 }
 
 /* =========================
-   開始畫面
+   開始與暫停按鈕（靠上）
 ========================= */
 #startScreen {
   position: fixed;
-  inset: 0;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(0,0,0,0.85);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px 20px;
+  border-radius: 12px;
   z-index: 999;
 }
 
-#startBtn {
+#startScreen button {
   font-size: 24px;
   padding: 14px 28px;
+  margin: 0 10px;
   cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #00ff88;
+  color: #121212;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+#startScreen button:hover {
+  background-color: #00cc6a;
+  transform: scale(1.05);
 }
 
 /* =========================
-   模擬實驗區（下方，往下滑）
+   模擬實驗區
 ========================= */
 #simulationWrapper {
   width: 90%;
@@ -67,9 +80,7 @@ html, body {
   border-radius: 14px;
 }
 
-/* =========================
-   實驗變因說明區（新增）
-========================= */
+/* 實驗變因說明區 */
 .variable-box {
   background: linear-gradient(135deg, #0f2f24, #123a2d);
   border: 2px solid #00ff88;
@@ -123,9 +134,7 @@ html, body {
   background: rgba(255, 200, 80, 0.9);
 }
 
-/* =========================
-   表格與小元件
-========================= */
+/* 表格與小元件 */
 table {
   width: 100%;
   border-collapse: collapse;
