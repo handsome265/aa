@@ -6,7 +6,6 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
-/* 幻燈片區外層 */
 .viewer-container {
   display: flex;
   align-items: flex-start;
@@ -16,7 +15,7 @@ html, body {
   position: relative;
 }
 
-/* 播放/暫停按鈕放在左側 */
+/* 合併播放/暫停按鈕樣式 */
 #playPauseBtn {
   background-color: #00ff88;
   color: #000;
@@ -81,13 +80,11 @@ html, body {
   border-radius: 10px;
 }
 
-/* 太陽能板與光線 */
 .solar-panel { position:absolute; border-radius:6px; }
 .light-ray { position:absolute; }
 .incident-ray { background: rgba(255,255,150,0.9);}
 .refracted-ray { background: rgba(255,200,80,0.9);}
 
-/* 表格與元件 */
 table { width:100%; border-collapse:collapse; margin-top:20px; }
 th, td { border-bottom:1px solid #444; padding:8px; text-align:center; }
 .color-indicator { display:inline-block; width:14px; height:14px; margin-right:6px; border-radius:3px; }
