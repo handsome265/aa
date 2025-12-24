@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>光電板模擬實驗</title>
+
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
@@ -11,14 +12,15 @@
 <body>
 
 <!-- ================= 幻燈片區 ================= -->
-<div id="viewer">
-  <!-- 暫停鍵固定在左上 -->
+<div id="viewerWrapper">
+  <div id="viewer">
+    <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
+    <input type="range" id="timelineSlider" min="0" max="100" value="0">
+  </div>
+  <!-- 暫停按鈕在幻燈片左側 -->
   <button id="pauseBtn">⏸</button>
-  <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
-  <input type="range" id="timelineSlider" min="0" max="100" value="0">
 </div>
 
-<!-- 開始按鈕 -->
 <div id="startScreen">
   <button id="startBtn">▶ 開始播放</button>
 </div>
