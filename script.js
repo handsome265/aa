@@ -55,24 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById("startBtn").addEventListener("click", () => {
-    document.getElementById("startScreen").style.display = "none";
     audio.currentTime = 0;
     audio.play();
   });
 
   // -------------------- 暫停按鈕 --------------------
   const pauseBtn = document.getElementById('pauseBtn');
-  if(pauseBtn){
-    pauseBtn.addEventListener('click', () => {
-      if (!audio.paused) {
-        audio.pause();
-        pauseBtn.textContent = '▶ 播放';
-      } else {
-        audio.play();
-        pauseBtn.textContent = '⏸ 暫停';
-      }
-    });
-  }
+  pauseBtn.addEventListener('click', () => {
+    if (!audio.paused) {
+      audio.pause();
+      pauseBtn.textContent = '▶ 播放';
+    } else {
+      audio.play();
+      pauseBtn.textContent = '⏸ 暫停';
+    }
+  });
 
   // -------------------- 光電板模擬 --------------------
   const rawData = { red:4.51, green:3.64, blue:3.79, yellow:5.68, darkBlue:1.69, purple:3.25 };
@@ -135,23 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateSimulation(glass){
     const t = glassTrans[glass] || 1;
-    const data = {...rawData}; // 複製原始數據
-
-    // 僅修改對應 LED
-    switch(glass){
-      case 'red': case 'orange': data.red *= t; data.yellow *= t; break;
-      case 'green': data.green *= t; break;
-      case 'blue': case 'darkBlue': data.blue *= t; break;
-      case 'purple': data.purple *= t; break;
-      case 'yellow': data.yellow *= t; break;
-      case 'lightBlue': data.blue *= t; break;
-      // brown, gray, clear 可保留原值
-    }
-
-    updateChart(data);
-    updateStats(data);
-    updateTable(data);
-
+    const data = {};
+    for(let k in rawData) data[k] = rawData[k]*t;
+    updateChart(data); updateStats(data); updateTable(data);
     const sim = document.getElementById('simulationArea'); sim.innerHTML='';
 
     const c = colors[glass] || colors.clear;
