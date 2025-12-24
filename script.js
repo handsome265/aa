@@ -64,10 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
   pauseBtn.addEventListener('click', () => {
     if (!audio.paused) {
       audio.pause();
-      pauseBtn.textContent = '▶ 播放';
+      pauseBtn.textContent = '▶';
     } else {
       audio.play();
-      pauseBtn.textContent = '⏸ 暫停';
+      pauseBtn.textContent = '⏸';
     }
   });
 
@@ -162,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('glassColor').addEventListener('change', e=>updateSimulation(e.target.value));
 
-  // Keyframes
   const style=document.createElement('style');
   style.textContent=`@keyframes pulse{0%{box-shadow:0 0 10px;}100%{box-shadow:0 0 40px;}}@keyframes flow{0%{transform:translateY(0);}100%{transform:translateY(20px);}}`;
   document.head.appendChild(style);
