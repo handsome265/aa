@@ -7,17 +7,20 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
-
 <body>
 
-<!-- ================= 幻燈片區 ================= -->
-<div id="viewer">
-  <button id="playPauseBtn">▶ 開始</button> <!-- 開始/暫停合一 -->
-  <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
-  <input type="range" id="timelineSlider" min="0" max="100" value="0">
+<div class="viewer-container">
+  <!-- 播放/暫停按鈕在左側 -->
+  <button id="playPauseBtn"></button>
+
+  <!-- 幻燈片 -->
+  <div id="viewer">
+    <img id="slideImg" src="images/Thank_you_page-0001.jpg" alt="幻燈片">
+    <input type="range" id="timelineSlider" min="0" max="100" value="0">
+  </div>
 </div>
 
-<!-- ================= 模擬實驗區 ================= -->
+<!-- 模擬實驗區 -->
 <div id="simulationWrapper">
 
   <h2 style="color:#00ff88;">模擬實驗：光電板與 LED 電流</h2>
