@@ -2,16 +2,37 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #121212;
-  color: #ffffff;
+  color: #fff;
   font-family: Arial, sans-serif;
 }
 
-#viewer {
+/* 幻燈片區外層 */
+.viewer-container {
+  display: flex;
+  align-items: flex-start;
   width: 90%;
   max-width: 1000px;
   margin: 30px auto;
   position: relative;
-  text-align: center;
+}
+
+/* 播放/暫停按鈕放在左側 */
+#playPauseBtn {
+  background-color: #00ff88;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* 幻燈片 */
+#viewer {
+  flex: 1;
+  position: relative;
 }
 
 #slideImg {
@@ -24,32 +45,12 @@ html, body {
 }
 
 #timelineSlider {
-  width: 90%;
-  margin: 15px auto 0 auto;
+  width: 100%;
+  margin: 15px 0 0 0;
   display: block;
 }
 
-/* 開始/暫停鍵合一 */
-#playPauseBtn {
-  position: absolute;
-  left: -60px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 4px 8px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #00ff88;
-  border: none;
-  border-radius: 6px;
-  color: #121212;
-  z-index: 10;
-  transition: background 0.2s;
-}
-
-#playPauseBtn:hover {
-  background-color: #00cc66;
-}
-
+/* 模擬實驗區 */
 #simulationWrapper {
   width: 90%;
   max-width: 1000px;
@@ -68,16 +69,25 @@ html, body {
   box-shadow: 0 0 18px rgba(0, 255, 136, 0.25);
 }
 
-.variable-box h3 { margin:0 0 10px 0; color:#00ff88; font-size:20px; }
-.variable-box ul { margin:0; padding-left:20px; }
+.variable-box h3 { color: #00ff88; margin-bottom:10px; }
+.variable-box ul { padding-left:20px; margin:0; }
 .variable-box li { font-size:15px; line-height:1.6; }
 
-.simulation-area { position: relative; height:220px; background:#111; margin-top:20px; border-radius:10px; }
-.solar-panel { position: absolute; border-radius:6px; }
-.light-ray { position:absolute; }
-.incident-ray { background: rgba(255,255,150,0.9); }
-.refracted-ray { background: rgba(255,200,80,0.9); }
+.simulation-area {
+  position: relative;
+  height: 220px;
+  background: #111;
+  margin-top: 20px;
+  border-radius: 10px;
+}
 
+/* 太陽能板與光線 */
+.solar-panel { position:absolute; border-radius:6px; }
+.light-ray { position:absolute; }
+.incident-ray { background: rgba(255,255,150,0.9);}
+.refracted-ray { background: rgba(255,200,80,0.9);}
+
+/* 表格與元件 */
 table { width:100%; border-collapse:collapse; margin-top:20px; }
 th, td { border-bottom:1px solid #444; padding:8px; text-align:center; }
-.color-indicator { display:inline-block; width:14px; height:14px; margin-right:6px; vertical-align:middle; border-radius:3px; }
+.color-indicator { display:inline-block; width:14px; height:14px; margin-right:6px; border-radius:3px; }
