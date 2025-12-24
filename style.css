@@ -9,21 +9,21 @@ html, body {
 .viewer-container {
   display: flex;
   align-items: flex-start;
-  width: 90%;
-  max-width: 1000px;
+  width: 95%;       /* 略微放大幻燈片區整體 */
+  max-width: 1100px;
   margin: 30px auto;
   position: relative;
 }
 
-/* 合併播放/暫停按鈕樣式 */
+/* 播放/暫停按鈕縮小 */
 #playPauseBtn {
   background-color: #00ff88;
   color: #000;
   border: none;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 4px 8px;       /* 原本 6px 10px，改小 */
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;         /* 原本 14px，改小 */
   margin-right: 10px;
   flex-shrink: 0;
 }
@@ -36,6 +36,7 @@ html, body {
 
 #slideImg {
   width: 100%;
+  max-width: 950px;    /* 控制最大寬度 */
   height: auto;
   display: block;
   border-radius: 12px;
