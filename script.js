@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const audio = new Audio("audio/part1.mp3");
   const img = document.getElementById("slideImg");
   const slider = document.getElementById("timelineSlider");
-  const pauseBtn = document.getElementById('pauseBtn');
+  const pauseBtn = document.getElementById("pauseBtn");
+  const startBtn = document.getElementById("startBtn");
 
   const slides = [
     { time: 0.00, src: "images/Thank_you_page-0001.jpg" },
@@ -55,14 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSlide(t);
   });
 
-  document.getElementById("startBtn").addEventListener("click", () => {
-    document.getElementById("startScreen").style.display = "none";
+  startBtn.addEventListener("click", () => {
+    startBtn.style.display = "none"; // 按下後消失
     audio.currentTime = 0;
     audio.play();
-    pauseBtn.textContent = '⏸';
   });
 
-  // -------------------- 暫停按鈕 --------------------
   pauseBtn.addEventListener('click', () => {
     if (!audio.paused) {
       audio.pause();
