@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // -------------------- 幻燈片 + 音訊 --------------------
   const audio = new Audio("audio/part1.mp3");
   const img = document.getElementById("slideImg");
   const slider = document.getElementById("timelineSlider");
-  const pauseBtn = document.getElementById("pauseBtn");
-  const startBtn = document.getElementById("startBtn");
+  const playPauseBtn = document.getElementById("playPauseBtn");
 
   const slides = [
     { time: 0.00, src: "images/Thank_you_page-0001.jpg" },
@@ -35,40 +33,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   img.src = slides[0].src;
 
-  function updateSlide(time) {
-    for (let i = slides.length - 1; i >= 0; i--) {
-      if (time >= slides[i].time) {
-        img.src = slides[i].src;
-        break;
-      }
+  function updateSlide(time){
+    for(let i=slides.length-1;i>=0;i--){
+      if(time>=slides[i].time){ img.src = slides[i].src; break; }
     }
   }
 
   audio.addEventListener("timeupdate", () => {
     updateSlide(audio.currentTime);
-    if (audio.duration) slider.value = (audio.currentTime / audio.duration) * 100;
+    if(audio.duration) slider.value = (audio.currentTime / audio.duration) * 100;
   });
 
   slider.addEventListener("input", e => {
-    if (!audio.duration) return;
-    const t = (e.target.value / 100) * audio.duration;
+    if(!audio.duration) return;
+    const t = (e.target.value/100)*audio.duration;
     audio.currentTime = t;
     updateSlide(t);
   });
 
-  startBtn.addEventListener("click", () => {
-    startBtn.style.display = "none"; // 按下後消失
-    audio.currentTime = 0;
-    audio.play();
-  });
-
-  pauseBtn.addEventListener('click', () => {
-    if (!audio.paused) {
-      audio.pause();
-      pauseBtn.textContent = '▶';
-    } else {
+  // 開始/暫停合一
+  playPauseBtn.addEventListener("click", ()=>{
+    if(audio.paused){
       audio.play();
-      pauseBtn.textContent = '⏸';
+      playPauseBtn.textContent = "⏸ 暫停";
+    }else{
+      audio.pause();
+      playPauseBtn.textContent = "▶ 播放";
     }
   });
 
