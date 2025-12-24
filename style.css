@@ -1,3 +1,6 @@
+/* =========================
+   全站深色背景
+========================= */
 html, body {
   margin: 0;
   padding: 0;
@@ -6,6 +9,9 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
+/* =========================
+   幻燈片區（上方）
+========================= */
 #viewer {
   width: 90%;
   max-width: 1000px;
@@ -14,6 +20,7 @@ html, body {
   position: relative;
 }
 
+/* 幻燈片圖片 */
 #slideImg {
   width: 100%;
   height: auto;
@@ -23,74 +30,64 @@ html, body {
   background-color: #000;
 }
 
+/* 時間軸 */
 #timelineSlider {
   width: 90%;
   margin: 15px auto 0 auto;
   display: block;
 }
 
-/* 暫停鍵小，放在幻燈片左上角 */
+/* =========================
+   暫停按鈕
+========================= */
 #pauseBtn {
   position: absolute;
-  top: 10px;
   left: 10px;
-  font-size: 18px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #00ff88;
-  color: #121212;
-  cursor: pointer;
+  top: 10px;
   z-index: 10;
+  padding: 4px 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #00ff88;
+  border: none;
+  border-radius: 6px;
+  color: #000;
 }
 
-#pauseBtn:hover {
-  background-color: #00cc6a;
-}
-
+/* =========================
+   開始畫面
+========================= */
 #startScreen {
   position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
-#startScreen button {
+#startBtn {
   font-size: 24px;
   padding: 14px 28px;
-  margin: 0 10px;
   cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  background-color: #00ff88;
-  color: #121212;
 }
 
-.simulation-area {
-  position: relative;
-  height: 220px;
-  background: #111;
-  margin-top: 20px;
-  border-radius: 10px;
+/* =========================
+   模擬實驗區（下方，往下滑）
+========================= */
+#simulationWrapper {
+  width: 90%;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 24px;
+  background-color: #1e1e1e;
+  border-radius: 14px;
 }
 
-.solar-panel {
-  position: absolute;
-  border-radius: 6px;
-}
-
-.light-ray {
-  position: absolute;
-}
-
-.incident-ray {
-  background: rgba(255, 255, 150, 0.9);
-}
-
-.refracted-ray {
-  background: rgba(255, 200, 80, 0.9);
-}
-
+/* =========================
+   實驗變因說明區
+========================= */
 .variable-box {
   background: linear-gradient(135deg, #0f2f24, #123a2d);
   border: 2px solid #00ff88;
@@ -116,6 +113,37 @@ html, body {
   line-height: 1.6;
 }
 
+/* 模擬畫面區 */
+.simulation-area {
+  position: relative;
+  height: 220px;
+  background: #111;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+/* 太陽能板 */
+.solar-panel {
+  position: absolute;
+  border-radius: 6px;
+}
+
+/* 光線 */
+.light-ray {
+  position: absolute;
+}
+
+.incident-ray {
+  background: rgba(255, 255, 150, 0.9);
+}
+
+.refracted-ray {
+  background: rgba(255, 200, 80, 0.9);
+}
+
+/* =========================
+   表格與小元件
+========================= */
 table {
   width: 100%;
   border-collapse: collapse;
